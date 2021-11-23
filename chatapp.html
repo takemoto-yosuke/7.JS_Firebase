@@ -32,7 +32,7 @@
   </form>
 
   <!-- データ出力場所 -->
-  <ul id="output"></ul>
+  <ul type="button" id="output"></ul>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
@@ -120,17 +120,20 @@
       // chatapp.html
       // 前項の`console.log()`下に記述
 
+      //const tagArray_id = [];
       const tagArray = [];
       dataArray.forEach(function (data) {
-        tagArray.push(`
-    <li id="${data.id}">
-      <p>${data.data.name} at ${convertTimestampToDatetime(data.data.time)}</p>
-      <p>${data.data.text}</p>
-    </li>
-  `);
+        let tagArray_id = [`<li id="${data.id}"><p>${data.data.name} at ${convertTimestampToDatetime(data.data.time.seconds)}</p>`,
+        `<p>${data.data.text}</p>`];
+
+        tagArray.push(tagArray_id);
       });
 
-      $("#output").html(tagArray);
+      tagArray.forEach(function (value, index) {
+        $("#output").append(`<p>${tagArray[index][0]}</p>`);
+        console.log(index);
+      });
+      //$("#output").html(tagArray[0][1]);
     });
 
   </script>
