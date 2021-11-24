@@ -63,6 +63,7 @@
 
 
     const firebaseConfig = {
+      apiKey: "AIzaSyCQ4UvquNpuSPP90woTyeSKtJ0Ao-wgxrg",    //gitにはあげない
       authDomain: "chat-59d64.firebaseapp.com",
       projectId: "chat-59d64",
       storageBucket: "chat-59d64.appspot.com",
@@ -121,9 +122,9 @@
 
       //const tagArray_id = [];
       const tagArray = [];
-      dataArray.forEach(function (data) {
-        let tagArray_id = [`<li id="${data.id}"><p>${data.data.name} at ${convertTimestampToDatetime(data.data.time.seconds)}</p>`,
-        `<p>${data.data.text}</p>`];
+      dataArray.forEach(function (data, index) {
+        let tagArray_id = [`<li id="${data.id}"><button type="button" class="set_name" value="${index}">${data.data.name} at ${convertTimestampToDatetime(data.data.time.seconds)}</button><p id="id_${index}"></p>`,
+        `<p class="set_name" value="${index}">${data.data.text}</p>`];
 
         tagArray.push(tagArray_id);
       });
@@ -133,6 +134,21 @@
         console.log(index);
       });
       //$("#output").html(tagArray[0][1]);
+
+      let click_flag = 1;
+      $(".set_name").on("click", function (e) {
+
+        if (click_flag == 1) {
+          $("#id_" + e.target.value).html(tagArray[e.target.value][1]);
+          //console.log(e.target.value);
+          click_flag = 0;
+        }
+        else {
+          $("#id_" + e.target.value).html("");
+          //console.log(e.target.value);
+          click_flag = 1;
+        }
+      });
     });
 
   </script>
