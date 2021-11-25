@@ -123,7 +123,7 @@
       //const tagArray_id = [];
       const tagArray = [];
       dataArray.forEach(function (data, index) {
-        let tagArray_id = [`<li id="${data.id}"><button type="button" class="set_name" value="${index}">${data.data.name} at ${convertTimestampToDatetime(data.data.time.seconds)}</button><p id="id_${index}"></p>`,
+        let tagArray_id = [`<li id="${data.id}"><button class="set_name" value="${index}">${data.data.name} at ${convertTimestampToDatetime(data.data.time.seconds)}</button><p id="id_${index}"></p>`,
         `<p class="set_name" value="${index}">${data.data.text}</p>`];
 
         tagArray.push(tagArray_id);
@@ -131,22 +131,24 @@
 
       tagArray.forEach(function (value, index) {
         $("#output").append(`<p>${tagArray[index][0]}</p>`);
-        console.log(index);
+        //console.log(index);
       });
       //$("#output").html(tagArray[0][1]);
 
-      let click_flag = 1;
+      let click_flag = [];
       $(".set_name").on("click", function (e) {
 
-        if (click_flag == 1) {
+        if (click_flag[e.target.value] == 1 || click_flag[e.target.value] == undefined) {
           $("#id_" + e.target.value).html(tagArray[e.target.value][1]);
           //console.log(e.target.value);
-          click_flag = 0;
+          console.log(click_flag[e.target.value]);
+          click_flag[e.target.value] = 0;
         }
         else {
           $("#id_" + e.target.value).html("");
           //console.log(e.target.value);
-          click_flag = 1;
+          console.log(click_flag[e.target.value]);
+          click_flag[e.target.value] = 1;
         }
       });
     });
