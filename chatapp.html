@@ -122,6 +122,7 @@
       //const tagArray_id = [];
       const tagArray = [];
       dataArray.forEach(function (data, index) {
+        // 一覧に表示されるnameをボタン表記にして、区別を付けるため連番のvalueを付与する
         let tagArray_id = [`<li id="${data.id}"><button class="set_name" value="${index}">${data.data.name} at ${convertTimestampToDatetime(data.data.time.seconds)}</button><p id="id_${index}"></p>`,
         `<p class="set_name" value="${index}">${data.data.text}</p>`];
 
@@ -135,14 +136,17 @@
       //$("#output").html(tagArray[0][1]);
 
       let click_flag = [];
-      $(".set_name").on("click", function (e) {
 
+      //一覧表示されているnameボタンをクリック
+      $(".set_name").on("click", function (e) {
+        // 連番を付けたvalueにより、どのnameをクリックしたか判別して、対応したtextを表示する
         if (click_flag[e.target.value] == 1 || click_flag[e.target.value] == undefined) {
           $("#id_" + e.target.value).html(tagArray[e.target.value][1]);
           //console.log(e.target.value);
           console.log(click_flag[e.target.value]);
           click_flag[e.target.value] = 0;
         }
+        // textが表示されていたら非表示にする
         else {
           $("#id_" + e.target.value).html("");
           //console.log(e.target.value);
